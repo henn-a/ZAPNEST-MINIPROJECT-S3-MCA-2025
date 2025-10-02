@@ -1,0 +1,151 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Add Worker</title>#}
+{#</head>#}
+{#<body>#}
+{#{% extends 'charging_station/chargingstationhome.html' %}#}
+{#{% block body %}#}
+{##}
+{##}
+{#<h2 align="center">Add Worker</h2>#}
+{##}
+{#<form method="POST" action="/myapp/addworkers_post/">{% csrf_token %}#}
+{#    <table align="center" border="1" cellpadding="8" cellspacing="0">#}
+{#        <tr>#}
+{#            <td>Name:</td>#}
+{#            <td><input type="text" name="name" required></td>#}
+{#        </tr>#}
+{#        <tr>#}
+{#            <td>Contact:</td>#}
+{#            <td><input type="text" name="phone" required></td>#}
+{#        </tr>#}
+{#        <tr>#}
+{#            <td>Email:</td>#}
+{#            <td><input type="email" name="email" required></td>#}
+{#        </tr>#}
+{#        <tr>#}
+{#            <td>Address:</td>#}
+{#            <td><textarea name="address" rows="3" cols="30" required></textarea></td>#}
+{#        </tr>#}
+{#        <tr>#}
+{#            <td colspan="2" align="center">#}
+{#                <input type="submit" value="Add Worker">#}
+{#            </td>#}
+{#        </tr>#}
+{#    </table>#}
+{#</form>#}
+{#{% endblock %}#}
+{#</body>#}
+{#</html>#}
+
+{% extends 'charging_station/chargingstationhome.html' %}
+{% block body %}
+
+<div class="container mt-5" style="max-width:800px;">
+
+    <!-- Page Header -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-primary">
+            <i class="bi bi-person-plus-fill"></i> Add New Worker
+        </h2>
+        <p class="text-muted">Fill in the details below to register a new worker at your charging station.</p>
+    </div>
+
+    <!-- Add Worker Card -->
+    <div class="card shadow-lg rounded-4 border-0 hover-card">
+        <div class="card-header bg-gradient text-white text-center rounded-top-4"
+             style="background: linear-gradient(90deg, #007bff, #00c6ff);">
+            <h4 class="mb-0">Worker Form</h4>
+        </div>
+        <div class="card-body p-4">
+            <form method="POST" action="/myapp/addworkers_post/">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" name="name" id="name"
+                           required pattern="[A-Za-z\s]{2,50}"
+                           title="Only letters and spaces, 2 to 50 characters"
+                           placeholder="Enter worker's full name">
+                </div>
+
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Contact Number</label>
+                    <input type="text" class="form-control" name="phone" id="phone"
+                           required pattern="[0-9]{10}"
+                           title="Enter exactly 10 digits"
+                           placeholder="10-digit phone number">
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" name="email" id="email"
+                           required placeholder="example@email.com">
+                </div>
+
+
+               <div class="mb-3">
+  <label for="place" class="form-label">Place</label>
+  <input type="text"
+         class="form-control"
+         name="place"
+         id="place"
+         required
+         placeholder="Enter your place"
+         pattern="[A-Za-z\s]{2,50}"
+         title="Place must contain only letters and spaces (2-50 characters)">
+</div>
+
+<div class="mb-3">
+  <label for="post" class="form-label">Post</label>
+  <input type="text"
+         class="form-control"
+         name="post"
+         id="post"
+         required
+         placeholder="Enter your post office"
+         pattern="[A-Za-z\s]{2,50}"
+         title="Post must contain only letters and spaces (2-50 characters)">
+</div>
+
+<div class="mb-3">
+  <label for="pin" class="form-label">PIN Code</label>
+  <input type="text"
+         class="form-control"
+         name="pin"
+         id="pin"
+         required
+         placeholder="Enter 6-digit PIN code"
+         pattern="[0-9]{6}"
+         title="PIN must be exactly 6 digits">
+</div>
+
+
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary px-4 rounded-pill shadow-sm">
+                        <i class="bi bi-save"></i> Add Worker
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Workers List Section -->
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<!-- Small Hover Effect -->
+<style>
+    .hover-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .hover-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+</style>
+
+{% endblock %}

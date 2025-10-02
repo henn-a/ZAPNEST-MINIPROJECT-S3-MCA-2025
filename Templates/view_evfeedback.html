@@ -1,0 +1,93 @@
+{##}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#</head>#}
+{#<body>#}
+{#<h2>view ev feedback</h2>#}
+{#{% extends 'charging_station/chargingstationhome.html' %}#}
+{#{% block body %}#}
+{#<center>#}
+{#<table border="1" cellpadding="8" cellspacing="0">#}
+{#    <tr>#}
+{#        <th>User</th>#}
+{#        <th>Feedback</th>#}
+{#        <th>rating</th>#}
+{#        <th>status</th>#}
+{#        <th></th>#}
+{#        <th></th>#}
+{#        <th></th>#}
+{#    </tr>#}
+{#    {% for i in data %}#}
+{#    <tr>#}
+{#        <td>{{ i.USER.name }}</td>#}
+{#        <td>{{ i.feedback }}</td>#}
+{#        <td>{{ i.rating }}</td>#}
+{#        <td></td>#}
+{#        <td></td>#}
+{#        <td></td>#}
+{#        <td></td>#}
+{#    </tr>#}
+{#    {% endfor %}#}
+{#</table>#}
+{#</center>#}
+{#{% endblock %}#}
+{#</body>#}
+{##}
+{#</html>#}
+
+
+{% extends 'charging_station/chargingstationhome.html' %}
+{% block body %}
+
+<div class="container mt-5" style="max-width:900px;">
+  <div class="card shadow-lg rounded-4 border-0">
+    <div class="card-header bg-success text-white text-center rounded-top-4">
+      <h4 class="mb-0">EV Feedback</h4>
+    </div>
+    <div class="card-body p-4">
+
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-success">
+            <tr>
+              <th scope="col">User</th>
+              <th scope="col">Feedback</th>
+              <th scope="col">date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in data %}
+            <tr>
+              <td>{{ i.USER.name }}</td>
+              <td>{{ i.feedback }}</td>
+              <td>{{ i.date }}</td>
+{#              <td>#}
+{#                <!-- Star rating visualization -->#}
+{#                {% for star in "12345"|slice:":i.rating"|make_list %}#}
+{#                  ⭐#}
+{#                {% endfor %}#}
+{#                <span class="text-muted">({{ i.rating }})</span>#}
+{#              </td>#}
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="3" class="text-center text-muted">No feedback available</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+ <script>
+     				$(document).ready(function ()
+            {
+            $('#example').DataTable();
+            });
+      </script>
+</div>
+
+{% endblock %}

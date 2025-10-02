@@ -1,0 +1,104 @@
+{##}
+{#{% extends 'user/user_home.html' %}#}
+{#{% block body %}#}
+{##}
+{#<div class="container mt-5" style="max-width:700px;">#}
+{#  <div class="card shadow-lg rounded-4 border-0">#}
+{#    <div class="card-body p-5">#}
+{##}
+{#      <h3 class="text-center mb-4">Edit Profile</h3>#}
+{##}
+{#      <form method="POST" action="/myapp/edit_profile_post/">#}
+{#        {% csrf_token %}#}
+{##}
+{#        <div class="mb-3">#}
+{#          <label for="name" class="form-label">Name</label>#}
+{#          <input type="text" class="form-control" id="name" name="name" value="{{ data.name }}" required>#}
+{#        </div>#}
+{##}
+{#        <div class="mb-3">#}
+{#          <label for="email" class="form-label">Email</label>#}
+{#          <input type="email" class="form-control" id="email" name="email" value="{{ data.email }}" required>#}
+{#        </div>#}
+{##}
+{#        <div class="mb-3">#}
+{#          <label for="phone" class="form-label">Phone</label>#}
+{#          <input type="text" class="form-control" id="phone" name="phone" value="{{ data.contact }}" required>#}
+{#        </div>#}
+{##}
+{#        <div class="mb-3">#}
+{#          <label for="place" class="form-label">Place</label>#}
+{#          <input type="text" class="form-control" id="place" name="address" value="{{ data.latitude }}" required>#}
+{#        </div>#}
+{##}
+{#        <div class="mb-3">#}
+{#          <label for="post" class="form-label">Post</label>#}
+{#          <input type="text" class="form-control" id="post" name="address" value="{{ data.post }}" required>#}
+{#        </div>#}
+{##}
+{#        <div class="mb-3">#}
+{#          <label for="pin" class="form-label">PIN</label>#}
+{#          <input type="text" class="form-control" id="pin" name="address" value="{{ data.longitude }}" required>#}
+{#        </div>#}
+{##}
+{#        <div class="text-center mt-4">#}
+{#          <button type="submit" class="btn btn-success px-4">Update Profile</button>#}
+{#          <a href="/myapp/viewprofile/" class="btn btn-secondary px-4">Cancel</a>#}
+{#        </div>#}
+{#      </form>#}
+{##}
+{#    </div>#}
+{#  </div>#}
+{#</div>#}
+{##}
+{#{% endblock %}#}
+
+
+{% extends 'charging_station/chargingstationhome.html' %}
+{% block body %}
+
+<div class="container mt-5" style="max-width:700px;">
+  <div class="card shadow-lg rounded-4 border-0 p-4">
+
+    <h4 class="mb-4 text-center text-primary">Profile Details</h4>
+
+     <form method="POST" action="/myapp/edit_profile_post/">
+        {% csrf_token %}
+
+      <!-- Name -->
+      <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text"  name='name'  class="form-control" value="{{ data.name }}">
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label class="form-label">place</label>
+        <input type="text" name='place' class="form-control" value="{{ data.place }}">
+      </div>
+
+      <!-- Phone -->
+      <div class="mb-3">
+        <label class="form-label">contact</label>
+        <input type="text" name="contact" class="form-control" value="{{ data.contact }}">
+      </div>
+<div class="mb-3">
+        <label class="form-label">latitude</label>
+        <input type="text" name='latitude' class="form-control" value="{{ data.latitude }}">
+      </div>
+
+        <div class="mb-3">
+        <label class="form-label">longitude</label>
+        <input type="text" name="longitude" class="form-control" value="{{ data.longitude }}">
+      </div>
+         <div class="text-center mt-4">
+          <button type="submit" class="btn btn-success px-4">Update Profile</button>
+{#          <a href="/myapp/viewprofile/" class="btn btn-secondary px-4">Cancel</a>#}
+        </div>
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
+

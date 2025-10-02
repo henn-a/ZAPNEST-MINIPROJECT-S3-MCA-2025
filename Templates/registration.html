@@ -1,0 +1,458 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <meta http-equiv="X-UA-Compatible" content="ie=edge">#}
+{#    <title>Sign Up Form by Colorlib</title>#}
+{##}
+{#    <!-- Font Icon -->#}
+{#    <link rel="stylesheet" href="/static/registrationform/fonts/material-icon/css/material-design-iconic-font.min.css">#}
+{##}
+{#    <!-- Main css -->#}
+{#    <link rel="stylesheet" href="/static/registrationform/css/style.css">#}
+{#</head>#}
+{#<body>#}
+{##}
+{#    <div class="main">#}
+{##}
+{#        <div class="container">#}
+{#            <form method="POST" class="appointment-form" id="appointment-form" action="/myapp/cregostration_post/">{% csrf_token %}#}
+{#                <h2>education appointment form</h2>#}
+{#                <div class="form-group-1">#}
+{#                    <input type="text" name="name" id="title" placeholder="Name" required />#}
+{#                    <input type="text" name="place" id="name" placeholder="Place" required />#}
+{#                    <input type="text" name="contact" id="email" placeholder="Contact" required />#}
+{#                    <input type="number" name="status" id="phone_number" placeholder="Status" required />#}
+{#                    <input type="text" name="latitude" id="latitude"placeholder="latitude" required />#}
+{#                    <input type="text" name="longitude" id="longitude" placeholder="longitude" required />#}
+{#                    <input type="text" name="username" id="phone_number" placeholder="username" required />#}
+{#                    <input type="text" name="password" id="phone_number" placeholder="password" required />#}
+{#                <div class="form-check">#}
+{#                    <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />#}
+{#                    <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree to the  <a href="#" class="term-service">Terms and Conditions</a></label>#}
+{#                </div>#}
+{#                <div class="form-submit">#}
+{#                    <input type="submit" name="submit" id="submit" class="submit" value="Request an appointment" />#}
+{#                </div>#}
+{#            </form>#}
+{#        </div>#}
+{##}
+{#    </div>#}
+{#    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>#}
+{##}
+{#    <script>#}
+{#        // Initialize the map#}
+{#        var map = L.map('map').setView([51.505, -0.09], 13); // Default center (London)#}
+{##}
+{#        // Add OpenStreetMap tiles#}
+{#        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {#}
+{#            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'#}
+{#        }).addTo(map);#}
+{##}
+{#        // Variable to hold the marker#}
+{#        var marker;#}
+{##}
+{#        // Function to update latitude and longitude fields#}
+{#        function updateLatLng(lat, lng) {#}
+{#            document.getElementById('latitude').value = lat.toFixed(6);#}
+{#            document.getElementById('longitude').value = lng.toFixed(6);#}
+{#        }#}
+{##}
+{#        // Add click event to the map#}
+{#        map.on('click', function(e) {#}
+{#            var lat = e.latlng.lat;#}
+{#            var lng = e.latlng.lng;#}
+{##}
+{#            // Remove existing marker if present#}
+{#            if (marker) {#}
+{#                map.removeLayer(marker);#}
+{#            }#}
+{##}
+{#            // Add new marker at clicked location#}
+{#            marker = L.marker([lat, lng]).addTo(map);#}
+{##}
+{#            // Update input fields#}
+{#            updateLatLng(lat, lng);#}
+{#        });#}
+{##}
+{#        // Try to get user's location#}
+{#        if (navigator.geolocation) {#}
+{#            navigator.geolocation.getCurrentPosition(function(position) {#}
+{#                var lat = position.coords.latitude;#}
+{#                var lng = position.coords.longitude;#}
+{##}
+{#                // Center map on user's location#}
+{#                map.setView([lat, lng], 13);#}
+{##}
+{#                // Add marker at user's location#}
+{#                marker = L.marker([lat, lng]).addTo(map);#}
+{##}
+{#                // Update input fields#}
+{#                updateLatLng(lat, lng);#}
+{#            }, function() {#}
+{#                console.log("Geolocation not available");#}
+{#            });#}
+{#        }#}
+{##}
+{#        // Geocoding search functionality#}
+{#        document.getElementById('search').addEventListener('keypress', function(e) {#}
+{#            if (e.key === 'Enter') {#}
+{#                var query = this.value;#}
+{#                if (query) {#}
+{#                    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`)#}
+{#                        .then(response => response.json())#}
+{#                        .then(data => {#}
+{#                            if (data && data.length > 0) {#}
+{#                                var lat = parseFloat(data[0].lat);#}
+{#                                var lng = parseFloat(data[0].lon);#}
+{##}
+{#                                // Center map on searched location#}
+{#                                map.setView([lat, lng], 13);#}
+{##}
+{#                                // Remove existing marker if present#}
+{#                                if (marker) {#}
+{#                                    map.removeLayer(marker);#}
+{#                                }#}
+{##}
+{#                                // Add new marker#}
+{#                                marker = L.marker([lat, lng]).addTo(map);#}
+{##}
+{#                                // Update input fields#}
+{#                                updateLatLng(lat, lng);#}
+{#                            } else {#}
+{#                                alert('Location not found');#}
+{#                            }#}
+{#                        })#}
+{#                        .catch(error => {#}
+{#                            console.error('Error fetching location:', error);#}
+{#                            alert('Error searching location');#}
+{#                        });#}
+{#                }#}
+{#            }#}
+{#        });#}
+{#    </script>#}
+{#</body>#}
+{#</html>#}
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <meta http-equiv="X-UA-Compatible" content="ie=edge">#}
+{#    <title>Sign Up Form by Colorlib</title>#}
+{##}
+{#    <!-- Font Icon -->#}
+{#    <link rel="stylesheet" href="/static/registrationform/fonts/material-icon/css/material-design-iconic-font.min.css">#}
+{##}
+{#    <!-- Main css -->#}
+{#    <link rel="stylesheet" href="/static/registrationform/css/style.css">#}
+{##}
+{#    <!-- Leaflet CSS (for map) -->#}
+{#    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">#}
+{#</head>#}
+{#<body>#}
+{##}
+{#    <div class="main">#}
+{#        <div class="container">#}
+{#            <form method="POST" class="appointment-form" id="appointment-form" action="/myapp/c_regostration_post/">#}
+{#                {% csrf_token %}#}
+{#                <h2>Education Appointment Form</h2>#}
+{#                <div class="form-group-1">#}
+{#                    <input type="text" name="name" id="name" placeholder="Name" required />#}
+{#                    <input type="text" name="place" id="place" placeholder="Place" required />#}
+{#                    <input type="text" name="contact" id="contact" placeholder="Contact" required />#}
+{##}
+{#                    <!-- Optional: search bar for location -->#}
+{#                    <input type="text" id="search" placeholder="Search location..." />#}
+{##}
+{#                    <div id="map" style="height: 300px; margin: 10px 0;"></div>#}
+{##}
+{#                    <input type="text" name="latitude" id="latitude" placeholder="Latitude" required readonly />#}
+{#                    <input type="text" name="longitude" id="longitude" placeholder="Longitude" required readonly />#}
+{#                    <input type="text" name="username" id="username" placeholder="Username" required />#}
+{#                    <input type="password" name="password" id="password" placeholder="Password" required />#}
+{##}
+{#                    <div class="form-check">#}
+{#                        <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />#}
+{#                        <label for="agree-term" class="label-agree-term">#}
+{#                            <span><span></span></span>#}
+{#                            I agree to the <a href="#" class="term-service">Terms and Conditions</a>#}
+{#                        </label>#}
+{#                    </div>#}
+{##}
+{#                    <div class="form-submit">#}
+{#                        <input type="submit" name="submit" id="submit" class="submit" value="Request an Appointment" />#}
+{#                    </div>#}
+{#                </div>#}
+{#            </form>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <!-- Bootstrap (optional) -->#}
+{#    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>#}
+{##}
+{#    <!-- Leaflet JS -->#}
+{#    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>#}
+{##}
+{#    <script>#}
+{#        // Initialize the map#}
+{#        var map = L.map('map').setView([51.505, -0.09], 13); // Default to London#}
+{##}
+{#        // Add OpenStreetMap tiles#}
+{#        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {#}
+{#            attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'#}
+{#        }).addTo(map);#}
+{##}
+{#        var marker;#}
+{##}
+{#        function updateLatLng(lat, lng) {#}
+{#            document.getElementById('latitude').value = lat.toFixed(6);#}
+{#            document.getElementById('longitude').value = lng.toFixed(6);#}
+{#        }#}
+{##}
+{#        // Add click event to map#}
+{#        map.on('click', function(e) {#}
+{#            var lat = e.latlng.lat;#}
+{#            var lng = e.latlng.lng;#}
+{##}
+{#            if (marker) {#}
+{#                map.removeLayer(marker);#}
+{#            }#}
+{##}
+{#            marker = L.marker([lat, lng]).addTo(map);#}
+{#            updateLatLng(lat, lng);#}
+{#        });#}
+{##}
+{#        // Try to get user's location#}
+{#        if (navigator.geolocation) {#}
+{#            navigator.geolocation.getCurrentPosition(function(position) {#}
+{#                var lat = position.coords.latitude;#}
+{#                var lng = position.coords.longitude;#}
+{#                map.setView([lat, lng], 13);#}
+{#                marker = L.marker([lat, lng]).addTo(map);#}
+{#                updateLatLng(lat, lng);#}
+{#            }, function() {#}
+{#                console.warn("Geolocation not available.");#}
+{#            });#}
+{#        }#}
+{##}
+{#        // Geocoding functionality (Enter to search)#}
+{#        document.getElementById('search').addEventListener('keypress', function(e) {#}
+{#            if (e.key === 'Enter') {#}
+{#                e.preventDefault(); // prevent form submission#}
+{#                var query = this.value;#}
+{#                if (query) {#}
+{#                    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`)#}
+{#                        .then(response => response.json())#}
+{#                        .then(data => {#}
+{#                            if (data.length > 0) {#}
+{#                                var lat = parseFloat(data[0].lat);#}
+{#                                var lng = parseFloat(data[0].lon);#}
+{#                                map.setView([lat, lng], 13);#}
+{##}
+{#                                if (marker) {#}
+{#                                    map.removeLayer(marker);#}
+{#                                }#}
+{##}
+{#                                marker = L.marker([lat, lng]).addTo(map);#}
+{#                                updateLatLng(lat, lng);#}
+{#                            } else {#}
+{#                                alert('Location not found');#}
+{#                            }#}
+{#                        })#}
+{#                        .catch(error => {#}
+{#                            console.error('Geocoding error:', error);#}
+{#                            alert('Error searching for location');#}
+{#                        });#}
+{#                }#}
+{#            }#}
+{#        });#}
+{#    </script>#}
+{#</body>#}
+{#</html>#}
+{##}
+{##}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Registration</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+  <style>
+    body {
+      background: #fff !important;   /* White background */
+      font-family: Arial, sans-serif;
+    }
+    .main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .card {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    .card h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+    #map {
+      height: 300px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    .form-check {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main">
+    <div class="card p-4">
+      <form method="POST" id="registration-form" action="/myapp/c_registration_post/">
+  {% csrf_token %}
+  <h2>Registration Form</h2>
+
+  <div class="mb-3">
+    <input type="text" class="form-control" name="name" placeholder="Name" required pattern="[A-Za-z ]{2,}" title="Enter a valid name">
+  </div>
+
+  <div class="mb-3">
+    <input type="text" class="form-control" name="place" id="place" placeholder="Place" required>
+  </div>
+
+  <div class="mb-3">
+    <input type="tel" class="form-control" name="contact" id="contact" placeholder="Contact (10 digits)" pattern="[0-9]{10}" title="Enter a valid 10-digit phone number" required>
+  </div>
+
+  <div class="mb-3">
+    <input type="text" class="form-control" id="search" placeholder="Search location...">
+  </div>
+
+  <div id="map" style="height: 300px;"></div>
+
+  <div class="row mt-3">
+    <div class="col">
+      <input type="text" class="form-control" name="latitude" id="latitude" placeholder="Latitude" readonly required>
+    </div>
+    <div class="col">
+      <input type="text" class="form-control" name="longitude" id="longitude" placeholder="Longitude" readonly required>
+    </div>
+  </div>
+
+  <input type="text" class="form-control" name="username" id="username"
+       placeholder="Enter username"
+       pattern="^[a-zA-Z0-9_]{4,20}$"
+       title="Username must be 4-20 characters long and contain only letters, numbers, and underscores"
+       required>
+
+
+  <input type="password" class="form-control" name="password" id="password"
+       placeholder="Enter password"
+       minlength="6" required>
+
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="agree-term" name="agree-term" required>
+    <label for="agree-term" class="form-check-label">
+      I agree to the <a href="#" class="text-primary">Terms and Conditions</a>
+    </label>
+  </div>
+
+  <div class="d-grid mt-3">
+    <button type="submit" class="btn btn-primary">Register</button>
+  </div>
+</form>
+
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+    // Initialize the map
+    var map = L.map('map').setView([20.5937, 78.9629], 5); // Default to India
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var marker;
+
+    function updateLatLng(lat, lng) {
+      document.getElementById('latitude').value = lat.toFixed(6);
+      document.getElementById('longitude').value = lng.toFixed(6);
+    }
+
+    // Add click event
+    map.on('click', function(e) {
+      var lat = e.latlng.lat;
+      var lng = e.latlng.lng;
+
+      if (marker) map.removeLayer(marker);
+      marker = L.marker([lat, lng]).addTo(map);
+
+      updateLatLng(lat, lng);
+    });
+
+    // Try to get user's location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+        map.setView([lat, lng], 13);
+        marker = L.marker([lat, lng]).addTo(map);
+        updateLatLng(lat, lng);
+      });
+    }
+
+    // Geocoding search functionality
+    document.getElementById('search').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        var query = this.value;
+        if (query) {
+          fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(data => {
+              if (data.length > 0) {
+                var lat = parseFloat(data[0].lat);
+                var lng = parseFloat(data[0].lon);
+                map.setView([lat, lng], 13);
+                if (marker) map.removeLayer(marker);
+                marker = L.marker([lat, lng]).addTo(map);
+                updateLatLng(lat, lng);
+              } else {
+                alert('Location not found');
+              }
+            })
+            .catch(err => {
+              console.error('Geocoding error:', err);
+              alert('Error searching location');
+            });
+        }
+      }
+    });
+  </script>
+</body>
+</html>
+

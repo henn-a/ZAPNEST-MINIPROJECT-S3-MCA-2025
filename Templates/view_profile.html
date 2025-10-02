@@ -1,0 +1,48 @@
+
+{% extends 'charging_station/chargingstationhome.html' %}
+{% block body %}
+
+<div class="container mt-5" style="max-width:700px;">
+  <div class="card shadow-lg rounded-4 border-0 p-4">
+
+    <h4 class="mb-4 text-center text-primary">Profile Details</h4>
+
+    <form>
+      <!-- Name -->
+      <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-control" value="{{ data.name }}" readonly>
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label class="form-label">place</label>
+        <input type="email" class="form-control" value="{{ data.place }}" readonly>
+      </div>
+
+      <!-- Phone -->
+      <div class="mb-3">
+        <label class="form-label">contact</label>
+        <input type="text" class="form-control" value="{{ data.contact }}" readonly>
+      </div>
+<div class="mb-3">
+        <label class="form-label">latitude</label>
+        <input type="text" class="form-control" value="{{ data.latitude }}" readonly>
+      </div>
+
+        <div class="mb-3">
+        <label class="form-label">longitude</label>
+        <input type="text" class="form-control" value="{{ data.longitude }}" readonly>
+      </div>
+
+      <!-- Place -->
+      <!-- Edit Button -->
+      <div class="text-center mt-4">
+        <a href="/myapp/edit_profile/" class="btn btn-primary px-4">Edit Profile</a>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

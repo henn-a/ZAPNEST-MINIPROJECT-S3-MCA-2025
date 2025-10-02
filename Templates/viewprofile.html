@@ -1,0 +1,28 @@
+{% extends 'charging_station/chargingstationhome.html' %}
+{% block content %}
+<div class="container my-5">
+  <h2 class="text-success">Charging Station Profile</h2>
+  <table class="table table-bordered">
+    <tr>
+      <th>Name</th>
+      <td>{{ data.name }}</td>
+    </tr>
+    <tr>
+      <th>Place</th>
+      <td>{{ station.place }}</td>
+    </tr>
+    <tr>
+      <th>Contact</th>
+      <td>{{ station.contact }}</td>
+    </tr>
+    <tr>
+      <th>Latitude</th>
+      <td>{{ station.latitude }}</td>
+    </tr>
+    <tr>
+      <th>Longitude</th>
+      <td>{{ station.longitude }}</td>
+    </tr>
+  </table>
+</div>
+{% endblock %}

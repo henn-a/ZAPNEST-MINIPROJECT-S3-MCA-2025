@@ -1,0 +1,110 @@
+{##<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#</head>#}
+{#<body>#}
+{#{% extends 'charging_station/chargingstationhome.html' %}#}
+{#{% block body %}#}
+{#<center>#}
+{#<table border="1" cellpadding="8" cellspacing="0">#}
+{#    <tr>#}
+{#        <th>User</th>#}
+{#        <th>slot number</th>#}
+{#        <th>booking_date</th>#}
+{#        <th>status</th>#}
+{#        <th>end_time</th>#}
+{#    </tr>#}
+{#    {% for i in data %}#}
+{#    <tr>#}
+{##}
+{#        <td>{{ i.USER.name}} <br>{{ i.USER.phone }}</td>#}
+{#        <td>{{ i.SLOT.slot_number}}</td>#}
+{#        <td>{{ i.booking_date }}</td>#}
+{#        <td>{{ i.status }}</td>#}
+{#        <td>{{ i.end_time }}</td>#}
+{#        <td><a href="/myapp/editworker/{{ i.id }}">Edit</a> </td>#}
+{#    <td>#}
+{##}
+{#        {% if i.status == 'booked' %}#}
+{#        <a href="/myapp/chat/{{ i.USER.LOGIN.id }}">chat</a>#}
+{#    {% else %} {{ i.status }} {% endif %}#}
+{#    </td>#}
+{#    </tr>#}
+{#    {% endfor %}#}
+{#</table>#}
+{#</center>#}
+{#{% endblock %}#}
+{#</body>#}
+{##}
+{#</html>#}
+
+{% extends 'charging_station/chargingstationhome.html' %}
+{% block body %}
+
+<div class="container my-5">
+  <!-- Page Title -->
+  <div class="text-center mb-4">
+    <h2 class="fw-bold text-success">View Slot Bookings & payment</h2>
+{#    <p class="text-muted">View and manage user slot bookings</p>#}
+  </div>
+
+  <!-- Table Card -->
+  <div class="card shadow-lg border-0 rounded-4">
+    <div class="card-body p-4">
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle text-center">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>phone</th>
+              <th>slot number</th>
+              <th>Booking Date</th>
+              <th>Payment</th>
+              <th>Status</th>
+              <th>Chat</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in data %}
+            <tr>
+              <td>
+                <strong>{{ i.name }}</strong>
+              </td>
+            <td>
+                <strong>{{ i.phone }}</strong>
+              </td>
+              <td>{{ i.slot_number }}</td>
+              <td>{{ i.booking_date }}</td>
+              <td>{{ i.payment }}<br>{{ i.amount }}</td>
+              <td>{{ i.status }}</td>
+              <td>
+                {% if i.status == 'Booked' %}
+                  <a href="/myapp/chat/{{ i.LOGIN }}"
+                     class="btn btn-sm btn-primary">
+                    <i class="bi bi-chat-dots"></i> Chat
+                  </a>
+                {% else %}
+                  <span class="badge bg-secondary"{{ i.status }}</span>
+                {% endif %}
+              </td>
+
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="4" class="text-muted">No bookings found</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Bootstrap Icons CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+{% endblock %}

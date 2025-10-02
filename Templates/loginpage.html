@@ -1,0 +1,207 @@
+{#<!doctype html>#}
+{#<html lang="en">#}
+{#  <head>#}
+{#  	<title>Login 08</title>#}
+{#    <meta charset="utf-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">#}
+{##}
+{#	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">#}
+{##}
+{#	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">#}
+{##}
+{#	<link rel="stylesheet" href="/static/loginpage/css/style.css">#}
+{##}
+{#	</head>#}
+{#	<body>#}
+{#	<section class="ftco-section">#}
+{#		<div class="container">#}
+{#			<div class="row justify-content-center">#}
+{#				<div class="col-md-6 text-center mb-5">#}
+{#					<h2 class="heading-section">Login #08</h2>#}
+{#				</div>#}
+{#			</div>#}
+{#			<div class="row justify-content-center">#}
+{#				<div class="col-md-6 col-lg-5">#}
+{#					<div class="login-wrap p-4 p-md-5">#}
+{#		      	<div class="icon d-flex align-items-center justify-content-center">#}
+{#		      		<span class="fa fa-user-o"></span>#}
+{#		      	</div>#}
+{#		      	<h3 class="text-center mb-4">Have an account?</h3>#}
+{#						<form action="/myapp/login_get/" method="post" class="login-form">{% csrf_token %}#}
+{#		      		<div class="form-group">#}
+{#		      			<input type="text" class="form-control rounded-left" placeholder="Username" name="username" required>#}
+{#		      		</div>#}
+{#	            <div class="form-group d-flex">#}
+{#	              <input type="password" class="form-control rounded-left" placeholder="Password" name="password" required>#}
+{#	            </div>#}
+{#	            <div class="form-group d-md-flex">#}
+{#	            	<div class="w-50">#}
+{#	            		<label class="checkbox-wrap checkbox-primary">Remember Me#}
+{#									  <input type="checkbox" checked>#}
+{#									  <span class="checkmark"></span>#}
+{#									</label>#}
+{#								</div>#}
+{#								<div class="w-50 text-md-right">#}
+{#									<a href="/myapp/user_registration/">SIGN UP</a>#}
+{#									<a href="/myapp/cregostration/">SIGN UP</a>#}
+{#								</div>#}
+{##}
+{#	            </div>#}
+{#	            <div class="form-group">#}
+{#	            	<button type="submit" class="btn btn-primary rounded submit p-3 px-5">Get Started</button>#}
+{#	            </div>#}
+{#	          </form>#}
+{#	        </div>#}
+{#				</div>#}
+{#			</div>#}
+{#		</div>#}
+{#	</section>#}
+{##}
+{#	<script src="/static/loginpage/js/jquery.min.js"></script>#}
+{#  <script src="/static/loginpage/js/popper.js"></script>#}
+{#  <script src="/static/loginpage/js/bootstrap.min.js"></script>#}
+{#  <script src="/static/loginpage/js/main.js"></script>#}
+{##}
+{#	</body>#}
+{#</html>#}
+{##}
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Login - MyApp</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Professional Custom CSS -->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background: #f4f7fa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .login-container {
+        background: #fff;
+        padding: 40px 30px;
+        width: 100%;
+        max-width: 400px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .login-container h3 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #333;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        font-size: 14px;
+        transition: border-color 0.3s;
+      }
+
+      .form-control:focus {
+        border-color: #007bff;
+        outline: none;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+        border-radius: 8px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .btn:hover {
+        background-color: #0056b3;
+      }
+
+      .form-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        margin-top: 15px;
+      }
+
+      .form-footer a {
+        color: #007bff;
+        text-decoration: none;
+      }
+
+      .form-footer a:hover {
+        text-decoration: underline;
+      }
+
+      .icon-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #007bff;
+        color: white;
+        font-size: 28px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin: 0 auto 20px auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="login-container">
+      <div class="icon-header">
+        <i class="fa fa-user"></i>
+      </div>
+      <h3>Sign In to Your Account</h3>
+      <form action="/myapp/login_get/" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Username" name="username" required>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" name="password" required>
+        </div>
+        <div class="form-footer">
+          <label>
+            <input type="checkbox" name="remember"> Remember Me
+          </label>
+          <a href="/myapp/user_registration/">Sign Up</a>
+									<a href="/myapp/cregostration/">SIGN UP</a>
+        </div>
+        <div class="form-group" style="margin-top: 20px;">
+          <button type="submit" class="btn">Login</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

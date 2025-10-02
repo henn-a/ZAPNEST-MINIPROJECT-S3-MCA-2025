@@ -1,0 +1,130 @@
+{##}
+{#{% extends 'charging_station/chargingstationhome.html' %}#}
+{#{% block body %}#}
+{##}
+{#<!-- Requests Section -->#}
+{#<section id="requests" class="section py-5 bg-white">#}
+{#  <div class="container" data-aos="fade-up">#}
+{##}
+{#    <!-- Section Title -->#}
+{#    <div class="section-title text-center mb-4">#}
+{#      <h2 class="fw-bold text-success">Requests</h2>#}
+{#      <p class="text-muted">Manage all incoming user requests</p>#}
+{#    </div>#}
+{##}
+{#    <!-- Table Card -->#}
+{#    <div class="card border-0 shadow rounded-3">#}
+{#      <div class="card-body p-4 bg-white">#}
+{##}
+{#        <div class="table-responsive">#}
+{#          <table class="table table-hover align-middle text-center mb-0" id="example">#}
+{#            <thead>#}
+{#              <tr style="font-size: 1.1rem; height: 70px;" class="bg-success text-white">#}
+{#                <th>User</th>#}
+{#                <th>Service</th>#}
+{#                <th>date</th>#}
+{#                <th>status</th>#}
+{#              </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+{#            {% for i in data %}#}
+{#             <tr>#}
+{#                 <td>{{ i.USER.name }}</td>#}
+{#                 <td>{{ i.service}}</td>#}
+{#                 <td>{{ i.date}}</td>#}
+{##}
+{#             <td>#}
+{#                 {%  if i.status == 'pending' %}#}
+{#                 <a href="/myapp/assign_requesttorwork/{{ i.id }}">assign</a>{% else %}{{ i.status }}{% endif %} </td>#}
+{##}
+{#            </tr>#}
+{#            {% endfor %}#}
+{#            </tbody>#}
+{#          </table>#}
+{#        </div>#}
+{##}
+{##}
+{#      </div>#}
+{#    </div>#}
+{#<script>#}
+{#     				$(document).ready(function ()#}
+{#            {#}
+{#            $('#example').DataTable();#}
+{#            });#}
+{#      </script>#}
+{#  </div>#}
+{#</section>#}
+{##}
+{#{% endblock %}#}
+
+
+{% extends 'charging_station/chargingstationhome.html' %}
+{% block body %}
+
+<section id="requests" class="section py-5 bg-white">
+  <div class="container mt-5" data-aos="fade-up">
+
+    <!-- Section Title -->
+    <div class="section-title text-center mb-4">
+      <h2 class="fw-bold text-success">Requests</h2>
+      <p class="text-muted">Manage all incoming user requests</p>
+    </div>
+
+    <!-- Table Card -->
+    <div class="card border-0 shadow rounded-3">
+      <div class="card-body p-4 bg-white">
+
+        <div class="table-responsive">
+          <table class="table table-hover align-middle text-center mb-0" id="example">
+            <thead>
+              <tr class="bg-success text-white" style="font-size: 1.1rem; height: 65px;">
+                <th>User</th>
+                <th>Service</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in data %}
+              <tr>
+                <td>{{ i.USER.name }}</td>
+                <td>{{ i.service }}</td>
+                <td>{{ i.date }}</td>
+                <td>
+                  {% if i.status == 'pending' %}
+                    <a href="/myapp/assign_requesttorwork/{{ i.id }}" class="btn btn-sm btn-outline-success">
+                      Assign
+                    </a>
+                  {% else %}
+                    {{ i.status|title }}
+                  {% endif %}
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="4" class="text-muted">No requests found.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DataTable and search customization -->
+  <script>
+    $(document).ready(function () {
+      $('#example').DataTable({
+        language: {
+          search: "Search requests:",
+          searchPlaceholder: "Type to filter..."
+        }
+      });
+    });
+  </script>
+</section>
+
+{% endblock %}
